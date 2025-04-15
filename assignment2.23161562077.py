@@ -1,10 +1,8 @@
 import heapq
 import time
 
-# Representasi Goal
 goal_state = [[1, 2, 3], [4, 5, 6], [7, 8, 0]]
 
-# Fungsi utilitas
 def is_goal(state):
     return state == goal_state
 
@@ -20,7 +18,7 @@ def find_zero(state):
 def get_neighbors(state):
     moves = []
     x, y = find_zero(state)
-    directions = [(-1, 0), (1, 0), (0, -1), (0, 1)]  # up, down, left, right
+    directions = [(-1, 0), (1, 0), (0, -1), (0, 1)] 
     for dx, dy in directions:
         nx, ny = x + dx, y + dy
         if 0 <= nx < 3 and 0 <= ny < 3:
@@ -29,7 +27,6 @@ def get_neighbors(state):
             moves.append(new_state)
     return moves
 
-# Heuristik: jumlah tile yang salah tempat
 def misplaced_tiles(state):
     count = 0
     for i in range(3):
@@ -38,7 +35,6 @@ def misplaced_tiles(state):
                 count += 1
     return count
 
-# GBFS
 def greedy_bfs(start):
     start_time = time.time()
     visited = set()
@@ -59,7 +55,6 @@ def greedy_bfs(start):
 
     return None, time.time() - start_time, nodes_explored
 
-# A* Search
 def a_star(start):
     start_time = time.time()
     visited = set()
@@ -82,14 +77,12 @@ def a_star(start):
 
     return None, time.time() - start_time, nodes_explored
 
-# Contoh papan awal
 initial_states = [
     [[1, 2, 3], [4, 0, 6], [7, 5, 8]],
     [[1, 2, 3], [5, 0, 6], [4, 7, 8]],
     [[7, 2, 4], [5, 0, 6], [8, 3, 1]]
 ]
 
-# Menjalankan dan membandingkan hasil
 for idx, state in enumerate(initial_states):
     print(f"\nInitial Board #{idx+1}")
     print("GBFS:")
